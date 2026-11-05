@@ -1,6 +1,8 @@
+scripts/
 node_modules/
 dist/
-wallpaper-app/node_modules/
+wallpaper-app/scripts/
+node_modules/
 wallpaper-app/dist/
 wallpaper-app/release/
 wallpaper-app/build/
