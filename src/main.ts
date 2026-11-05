@@ -65,12 +65,8 @@ app.innerHTML = `
           <h1 data-edit-box data-edit-key="hero.heading" class="text-3xl sm:text-5xl font-bold tracking-tight text-white">
             ${hero.heading}
           </h1>
-          <p data-edit-box style="${hero.subheading.trim() ? '' : 'display:none'}" data-edit-key="hero.subheading" class="text-base sm:text-lg text-slate-200 font-medium whitespace-pre-line">
-            ${hero.subheading}
-          </p>
-          <p data-edit-box style="${hero.description.trim() ? '' : 'display:none'}" data-edit-key="hero.description" class="text-sm text-slate-400 leading-relaxed max-w-2xl whitespace-pre-line">
-            ${hero.description}
-          </p>
+          <p data-edit-box style="${hero.subheading.trim() ? '' : 'display:none'}" data-edit-key="hero.subheading" class="text-base sm:text-lg text-slate-200 font-medium whitespace-pre-line">${hero.subheading.trim()}</p>
+          <p data-edit-box style="${hero.description.trim() ? '' : 'display:none'}" data-edit-key="hero.description" class="text-sm text-slate-400 leading-relaxed max-w-2xl whitespace-pre-line">${hero.description.trim()}</p>
         </div>
 
         <div class="flex flex-wrap items-center gap-2.5">

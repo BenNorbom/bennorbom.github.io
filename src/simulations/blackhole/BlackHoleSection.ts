@@ -23,9 +23,7 @@ export function mountBlackHoleSection(container: HTMLElement): () => void {
         <h2 data-edit-box data-edit-key="blackHole.title" class="text-2xl sm:text-4xl font-bold tracking-tight text-white">
           ${c.title}
         </h2>
-        <p data-edit-box data-edit-key="blackHole.description" class="text-sm sm:text-[15px] text-slate-300 leading-relaxed whitespace-pre-line">
-          ${c.description}
-        </p>
+        <p data-edit-box data-edit-key="blackHole.description" class="text-sm sm:text-[15px] text-slate-300 leading-relaxed whitespace-pre-line">${c.description.trim()}</p>
       </div>
 
       <!-- Interactive Kerr Black Hole Viewport Card -->

@@ -14,9 +14,7 @@ export function mountProject64Section(container: HTMLElement): () => void {
         <h2 data-edit-box data-edit-key="project64.title" class="text-2xl sm:text-4xl font-bold tracking-tight text-white">
           ${c.title}
         </h2>
-        <p data-edit-box data-edit-key="project64.description" class="text-sm sm:text-[15px] text-slate-300 leading-relaxed whitespace-pre-line">
-          ${c.description}
-        </p>
+        <p data-edit-box data-edit-key="project64.description" class="text-sm sm:text-[15px] text-slate-300 leading-relaxed whitespace-pre-line">${c.description.trim()}</p>
       </div>
 
       <!-- Status & Reset Board Bar -->

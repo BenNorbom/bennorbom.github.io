@@ -132,9 +132,7 @@ export function mountDbsBrainSection(container: HTMLElement): () => void {
         <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
           <!-- Left: Editorial Research Explanation Card (8 cols) -->
           <div data-edit-box class="xl:col-span-8 rounded-2xl bg-slate-900/75 border border-slate-800/90 p-5 sm:p-7 shadow-lg">
-            <div data-edit-key="dbs.description" class="text-sm sm:text-[15px] text-slate-200 leading-7 whitespace-pre-line">
-              ${c.description}
-            </div>
+            <div data-edit-key="dbs.description" class="text-sm sm:text-[15px] text-slate-200 leading-7 whitespace-pre-line">${c.description.trim()}</div>
           </div>
 
           <!-- Right: Published Journal Article Card & Atlas Notice (4 cols) -->
@@ -171,9 +169,7 @@ export function mountDbsBrainSection(container: HTMLElement): () => void {
             </div>
 
             <div data-edit-box style="${c.syntheticNotice.trim() ? '' : 'display:none'}" class="rounded-2xl bg-slate-900/60 border border-slate-800/80 px-4 py-3.5">
-              <p data-edit-key="dbs.syntheticNotice" class="text-xs font-mono text-slate-400 leading-relaxed whitespace-pre-line">
-                ${c.syntheticNotice}
-              </p>
+              <p data-edit-key="dbs.syntheticNotice" class="text-xs font-mono text-slate-400 leading-relaxed whitespace-pre-line">${c.syntheticNotice.trim()}</p>
             </div>
           </div>
         </div>
