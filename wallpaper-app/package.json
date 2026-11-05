@@ -1,0 +1,60 @@
+{
+  "name": "black-hole-wallpaper",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Standalone Kerr Black Hole Live Desktop Wallpaper for Windows",
+  "author": "Benjamin Norbom",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "build": "vite build",
+    "prepare:desktop": "node scripts/prepare-desktop.mjs",
+    "smoke": "node scripts/smoke-desktop.mjs",
+    "dist:win": "npm run build && npm run prepare:desktop && electron-builder --win --x64 --publish never"
+  },
+  "build": {
+    "appId": "com.bennorbom.blackhole.wallpaper",
+    "productName": "Black Hole Wallpaper",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "build/icon.png",
+      "build/licenses/**/*",
+      "package.json",
+      "!node_modules/**/*"
+    ],
+    "asar": true,
+    "win": {
+      "target": ["nsis"],
+      "icon": "build/icon.ico",
+      "signExecutable": false
+    },
+    "nsis": {
+      "artifactName": "Black-Hole-Wallpaper-${version}-setup.exe",
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "allowElevation": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Black Hole Wallpaper",
+      "runAfterFinish": true,
+      "include": "scripts/installer.nsh"
+    }
+  },
+  "devDependencies": {
+    "electron": "44.3.0",
+    "electron-builder": "26.15.3",
+    "png-to-ico": "3.0.2",
+    "pngjs": "7.0.0",
+    "typescript": "~5.7.3",
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "three": "^0.175.0"
+  }
+}

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+wallpaper-app/node_modules/
+wallpaper-app/dist/
+wallpaper-app/release/
+wallpaper-app/build/
+release-assets/
+public/downloads/*.exe
+.agents/
+test-results/
+playwright-report/
+*.log

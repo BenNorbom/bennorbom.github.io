@@ -1,0 +1,150 @@
+{
+  "title": "Synthetic Human Brain DBS Atlas (Single Unilateral Lead)",
+  "isSyntheticNonPatient": true,
+  "modelName": "cnn_103_class (1D CNN Surrogate of MRG Axon Model)",
+  "units": "Volts (V)",
+  "nFibers": 3200,
+  "totalVisVertices": 257497,
+  "pulseWidthsUs": [
+    60,
+    75,
+    90,
+    105,
+    120,
+    135,
+    150,
+    175,
+    200,
+    225,
+    250,
+    275,
+    300,
+    350,
+    400,
+    450,
+    500
+  ],
+  "lead": {
+    "model": "Medtronic 3387 (Unilateral Left Subthalamic Target)",
+    "radiusMm": 0.635,
+    "contactLengthMm": 1.5,
+    "contactSpacingMm": 1.5,
+    "shaftLengthMm": 76.0,
+    "tipPos": [
+      -11.647,
+      -13.8337,
+      -8.154
+    ],
+    "c0Pos": [
+      -11.8,
+      -13.5,
+      -7.5
+    ],
+    "axisU": [
+      -0.204064,
+      0.444907,
+      0.872018
+    ],
+    "contacts": [
+      [
+        -11.8,
+        -13.5,
+        -7.5
+      ],
+      [
+        -12.4122,
+        -12.1653,
+        -4.8839
+      ],
+      [
+        -13.0244,
+        -10.8306,
+        -2.2679
+      ],
+      [
+        -13.6366,
+        -9.4958,
+        0.3482
+      ]
+    ]
+  },
+  "brainBounds": {
+    "min": [
+      -58.529998779296875,
+      -87.37999725341797,
+      -56.5
+    ],
+    "max": [
+      59.060001373291016,
+      60.08000183105469,
+      72.66999816894531
+    ],
+    "center": [
+      0.0,
+      -15.0,
+      12.0
+    ]
+  },
+  "pathways": [
+    {
+      "id": "CST",
+      "name": "Corticospinal Tract",
+      "region": "Left Motor Cortex -> Internal Capsule -> Brainstem",
+      "count": 650,
+      "color": "#00E5FF",
+      "inactiveColor": "#083A47",
+      "start": 0,
+      "end": 650
+    },
+    {
+      "id": "HDP",
+      "name": "Hyperdirect Pathway",
+      "region": "Left Prefrontal / Pre-SMA -> Subthalamic Target",
+      "count": 500,
+      "color": "#D500F9",
+      "inactiveColor": "#3B0A45",
+      "start": 650,
+      "end": 1150
+    },
+    {
+      "id": "DRTT",
+      "name": "Dentatorubrothalamic Tract",
+      "region": "Deep Brainstem -> Ventral Subthalamic -> Motor Cortex",
+      "count": 500,
+      "color": "#FFB300",
+      "inactiveColor": "#4A3200",
+      "start": 1150,
+      "end": 1650
+    },
+    {
+      "id": "PTF",
+      "name": "Pallidothalamic Fasciculus",
+      "region": "Left Basal Ganglia -> Dorsal Zona Incerta -> Thalamus",
+      "count": 450,
+      "color": "#00E676",
+      "inactiveColor": "#073E22",
+      "start": 1650,
+      "end": 2100
+    },
+    {
+      "id": "CC",
+      "name": "Corpus Callosum",
+      "region": "Bilateral Interhemispheric Commissural Arch",
+      "count": 650,
+      "color": "#FF4081",
+      "inactiveColor": "#471226",
+      "start": 2100,
+      "end": 2750
+    },
+    {
+      "id": "SLF",
+      "name": "Arcuate & Longitudinal Fasciculus",
+      "region": "Bilateral Fronto-Parieto-Temporal Cortical Arch",
+      "count": 450,
+      "color": "#3D8BFF",
+      "inactiveColor": "#10284E",
+      "start": 2750,
+      "end": 3200
+    }
+  ]
+}

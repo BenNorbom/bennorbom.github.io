@@ -1,0 +1,25 @@
+{
+  "name": "benjamin-norbom-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Benjamin Norbom — Research, Interactive DBS Visualization, Project 64 Robotics & Relativistic Black Hole Simulation",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5173",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "lucide": "^0.475.0",
+    "three": "^0.175.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.9",
+    "@types/three": "^0.175.0",
+    "playwright": "^1.51.0",
+    "tailwindcss": "^4.0.9",
+    "typescript": "^5.7.3",
+    "vite": "^6.2.0"
+  }
+}
