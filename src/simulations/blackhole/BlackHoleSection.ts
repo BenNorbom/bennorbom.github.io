@@ -2,6 +2,7 @@ import { SITE_CONTENT } from '../../siteContent'
 import { BlackHoleRenderer } from './BlackHoleRenderer'
 import { DURATION, GRAVITATIONAL_RADIUS_KM, AU_KM, SPIN, horizonRadius, clampTime } from './physics'
 import { FLIGHT_CHAPTERS } from './flight'
+import { detectMobileUser } from '../../mobileMode'
 
 function formatClock(seconds: number): string {
   const s = Math.max(0, Math.floor(seconds))
@@ -42,13 +43,13 @@ export function mountBlackHoleSection(container: HTMLElement): () => void {
           </div>
 
           <!-- Chapter Presets -->
-          <div class="flex flex-wrap items-center gap-1.5" role="group" aria-label="Orbital passage chapters">
+          <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar whitespace-nowrap max-w-full pb-0.5 sm:pb-0" role="group" aria-label="Orbital passage chapters">
             ${FLIGHT_CHAPTERS.map(
               (ch, idx) => `
               <button
                 type="button"
                 data-bh-chapter="${ch.time}"
-                class="bh-chapter-btn px-2.5 py-1 rounded-lg text-[11px] font-medium transition border ${
+                class="bh-chapter-btn shrink-0 px-2.5 py-1 rounded-lg text-[11px] font-medium transition border ${
                   idx === 0
                     ? 'bg-sky-500/25 text-sky-200 border-sky-400/50'
                     : 'bg-slate-900/90 hover:bg-slate-800 text-slate-300 border-slate-800'
@@ -62,7 +63,7 @@ export function mountBlackHoleSection(container: HTMLElement): () => void {
         </div>
 
         <!-- WebGL2 Ray-Traced Canvas Area -->
-        <div id="bhStage" class="relative w-full h-[460px] sm:h-[560px] lg:h-[620px] bg-[#040507] select-none">
+        <div id="bhStage" class="relative w-full h-[340px] sm:h-[560px] lg:h-[620px] bg-[#040507] select-none">
           <canvas
             id="bhCanvas"
             class="w-full h-full block cursor-grab active:cursor-grabbing"
@@ -78,37 +79,37 @@ export function mountBlackHoleSection(container: HTMLElement): () => void {
           </div>
 
           <!-- Relativistic Telemetry HUD (Top Left) -->
-          <div class="absolute top-3 left-3 pointer-events-none bg-slate-950/75 backdrop-blur-md border border-slate-800/80 rounded-xl px-3.5 py-2.5 text-[11px] font-mono text-slate-300 space-y-1">
-            <div class="flex items-center justify-between gap-5">
+          <div class="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 pointer-events-none bg-slate-950/75 backdrop-blur-md border border-slate-800/80 rounded-xl px-2.5 py-1.5 sm:px-3.5 sm:py-2.5 text-[10px] sm:text-[11px] font-mono text-slate-300 space-y-0.5 sm:space-y-1">
+            <div class="flex items-center justify-between gap-3 sm:gap-5">
               <span class="text-slate-400">Observer r / M</span>
               <span id="bhRadiusM" class="text-sky-300 font-semibold">35.00 M</span>
             </div>
-            <div class="flex items-center justify-between gap-5">
+            <div class="flex items-center justify-between gap-3 sm:gap-5">
               <span class="text-slate-400">Range (AU)</span>
               <span id="bhRadiusAu" class="text-slate-100">34.55 AU</span>
             </div>
-            <div class="flex items-center justify-between gap-5">
+            <div class="hidden sm:flex items-center justify-between gap-5">
               <span class="text-slate-400">Kerr Spin / Horizon</span>
               <span class="text-slate-200">+0.80 / ${horizonRadius(SPIN).toFixed(2)} M</span>
             </div>
           </div>
 
           <!-- Free-Look Hint & Reset Button (Top Right) -->
-          <div class="absolute top-3 right-3 flex items-center gap-2">
+          <div class="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 flex items-center gap-1.5 sm:gap-2">
             <span class="hidden sm:inline-block pointer-events-none px-2.5 py-1 rounded-lg bg-slate-950/70 backdrop-blur border border-slate-800/80 text-[11px] text-slate-300">
               Drag to free-look
             </span>
             <button
               type="button"
               id="bhResetLookBtn"
-              class="hidden px-2.5 py-1 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 text-sky-200 border border-sky-400/40 text-[11px] font-medium transition"
+              class="hidden px-2 sm:px-2.5 py-1 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 text-sky-200 border border-sky-400/40 text-[10px] sm:text-[11px] font-medium transition"
             >
               Recenter Camera
             </button>
             <button
               type="button"
               id="bhFullscreenBtn"
-              class="px-2.5 py-1 rounded-lg bg-slate-950/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80 text-[11px] font-medium transition"
+              class="px-2 sm:px-2.5 py-1 rounded-lg bg-slate-950/80 hover:bg-slate-800 text-slate-200 border border-slate-700/80 text-[10px] sm:text-[11px] font-medium transition"
             >
               Fullscreen
             </button>
@@ -223,6 +224,9 @@ export function mountBlackHoleSection(container: HTMLElement): () => void {
 
   let renderer: BlackHoleRenderer | null = null
   try {
+    if (detectMobileUser().isMobile) {
+      qualitySelect.value = '0.36'
+    }
     renderer = new BlackHoleRenderer(canvas)
     renderer.scale = Number(qualitySelect.value)
     renderer.resize()
@@ -255,10 +259,10 @@ export function mountBlackHoleSection(container: HTMLElement): () => void {
     chapterBtns.forEach((btn, idx) => {
       if (idx === activeIdx) {
         btn.className =
-          'bh-chapter-btn px-2.5 py-1 rounded-lg text-[11px] font-medium transition border bg-sky-500/25 text-sky-200 border-sky-400/50'
+          'bh-chapter-btn shrink-0 px-2.5 py-1 rounded-lg text-[11px] font-medium transition border bg-sky-500/25 text-sky-200 border-sky-400/50'
       } else {
         btn.className =
-          'bh-chapter-btn px-2.5 py-1 rounded-lg text-[11px] font-medium transition border bg-slate-900/90 hover:bg-slate-800 text-slate-300 border-slate-800'
+          'bh-chapter-btn shrink-0 px-2.5 py-1 rounded-lg text-[11px] font-medium transition border bg-slate-900/90 hover:bg-slate-800 text-slate-300 border-slate-800'
       }
     })
   }

@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { SITE_CONTENT } from '../../siteContent'
+import { getOptimalPixelRatio } from '../../mobileMode'
 
 interface PathwayMeta {
   id: string
@@ -180,14 +181,14 @@ export function mountDbsBrainSection(container: HTMLElement): () => void {
         <!-- Left/Main 3D Brain Viewport (8 cols) -->
         <div class="lg:col-span-8 rounded-2xl bg-[#070a12] border border-slate-800/90 overflow-hidden shadow-2xl flex flex-col">
           <!-- Camera & Display Toolbar -->
-          <div class="flex flex-wrap items-center justify-between gap-2 px-3.5 py-2.5 bg-slate-950/90 border-b border-slate-800 text-xs">
-            <div class="flex flex-wrap items-center gap-1.5">
-              <span class="font-semibold text-slate-400 mr-1">View:</span>
-              <button type="button" data-dbs-cam="oblique" class="dbs-cam-btn px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-200 border border-rose-500/40 font-medium">3D Oblique</button>
-              <button type="button" data-dbs-cam="anterior" class="dbs-cam-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800">Coronal (Front)</button>
-              <button type="button" data-dbs-cam="lateral" class="dbs-cam-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800">Sagittal (Left)</button>
-              <button type="button" data-dbs-cam="superior" class="dbs-cam-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800">Axial (Top)</button>
-              <button type="button" data-dbs-cam="zoom_lead" class="dbs-cam-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-amber-200 border border-amber-500/30">Zoom Electrode</button>
+          <div class="flex flex-wrap items-center justify-between gap-2 px-3 sm:px-3.5 py-2 sm:py-2.5 bg-slate-950/90 border-b border-slate-800 text-xs">
+            <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar whitespace-nowrap max-w-full pb-0.5 sm:pb-0">
+              <span class="font-semibold text-slate-400 mr-1 shrink-0">View:</span>
+              <button type="button" data-dbs-cam="oblique" class="dbs-cam-btn shrink-0 px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-200 border border-rose-500/40 font-medium">3D Oblique</button>
+              <button type="button" data-dbs-cam="anterior" class="dbs-cam-btn shrink-0 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800">Coronal (Front)</button>
+              <button type="button" data-dbs-cam="lateral" class="dbs-cam-btn shrink-0 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800">Sagittal (Left)</button>
+              <button type="button" data-dbs-cam="superior" class="dbs-cam-btn shrink-0 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800">Axial (Top)</button>
+              <button type="button" data-dbs-cam="zoom_lead" class="dbs-cam-btn shrink-0 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-amber-200 border border-amber-500/30">Zoom Electrode</button>
             </div>
 
             <div class="flex flex-wrap items-center gap-3">
@@ -199,7 +200,7 @@ export function mountDbsBrainSection(container: HTMLElement): () => void {
           </div>
 
           <!-- 3D Three.js Canvas Stage -->
-          <div id="dbsStage" class="relative w-full h-[520px] sm:h-[620px] flex-1 bg-[#070a12]">
+          <div id="dbsStage" class="relative w-full h-[350px] sm:h-[520px] lg:h-[620px] flex-1 bg-[#070a12]">
             <canvas
               id="dbsCanvas"
               class="w-full h-full block cursor-grab active:cursor-grabbing"
@@ -207,31 +208,34 @@ export function mountDbsBrainSection(container: HTMLElement): () => void {
             ></canvas>
 
             <!-- Loading Indicator -->
-            <div id="dbsLoadingOverlay" class="absolute inset-0 bg-[#070a12]/95 flex flex-col items-center justify-center gap-3 z-10">
+            <div id="dbsLoadingOverlay" class="absolute inset-0 bg-[#070a12]/95 flex flex-col items-center justify-center gap-3 z-10 px-4 text-center">
               <div class="w-8 h-8 rounded-full border-2 border-rose-500 border-t-transparent animate-spin"></div>
               <p id="dbsLoadingText" class="text-xs font-mono text-slate-300">Loading 3,200 synthetic streamlines &amp; 217,600 CNN thresholds...</p>
             </div>
 
             <!-- Live Stimulation Telemetry HUD (Top Left) -->
-            <div class="absolute top-3 left-3 pointer-events-none bg-slate-950/85 backdrop-blur-md border border-slate-800/90 rounded-xl px-3.5 py-2.5 text-xs space-y-1 shadow-lg">
+            <div class="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 pointer-events-none bg-slate-950/85 backdrop-blur-md border border-slate-800/90 rounded-xl px-2.5 py-1.5 sm:px-3.5 sm:py-2.5 text-[11px] sm:text-xs space-y-0.5 sm:space-y-1 shadow-lg max-w-[calc(100%-20px)]">
               <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#ff2414] shadow-[0_0_10px_#ff2414]"></span>
+                <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#ff2414] shadow-[0_0_10px_#ff2414] shrink-0"></span>
                 <span id="dbsHudHeader" class="font-mono font-semibold text-white">Contact 1 · 3.00 V · 90 µs</span>
               </div>
-              <div class="font-mono text-[11px] text-slate-300">
+              <div class="font-mono text-[10px] sm:text-[11px] text-slate-300">
                 Activated Fibers:
                 <span id="dbsHudCount" class="text-rose-400 font-bold">-- / 3200</span>
                 (<span id="dbsHudPct" class="text-rose-300">--%</span>)
               </div>
-              <div class="text-[11px] text-slate-400">
+              <div class="hidden sm:block text-[11px] text-slate-400">
                 Drag to rotate 3D brain · Scroll to zoom · Right-drag to pan · Click contacts on lead
+              </div>
+              <div class="block sm:hidden text-[10px] text-slate-400">
+                1-finger drag to rotate · Pinch to zoom · Tap lead contacts
               </div>
             </div>
 
             <!-- Anatomical Orientation Badge (Bottom Left) -->
-            <div class="absolute bottom-3 left-3 pointer-events-none bg-slate-950/80 backdrop-blur border border-slate-800/80 rounded-lg px-3 py-1.5 text-[11px] font-mono text-slate-300 flex flex-wrap items-center gap-3">
-              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#ff2414] inline-block"></span>Active Contact / Recruited Axon</span>
-              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block"></span>Medtronic 3387 (Left Unilateral)</span>
+            <div class="absolute bottom-2.5 left-2.5 sm:bottom-3 sm:left-3 pointer-events-none bg-slate-950/80 backdrop-blur border border-slate-800/80 rounded-lg px-2.5 py-1 sm:px-3 sm:py-1.5 text-[10px] sm:text-[11px] font-mono text-slate-300 flex flex-wrap items-center gap-2 sm:gap-3 max-w-[calc(100%-20px)]">
+              <span class="flex items-center gap-1.5"><span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#ff2414] inline-block shrink-0"></span>Active Contact / Recruited Axon</span>
+              <span class="hidden sm:flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-slate-400 inline-block shrink-0"></span>Medtronic 3387 (Left Unilateral)</span>
             </div>
           </div>
         </div>
@@ -413,7 +417,7 @@ export function mountDbsBrainSection(container: HTMLElement): () => void {
     antialias: true,
     powerPreference: 'high-performance',
   })
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  renderer.setPixelRatio(getOptimalPixelRatio(2, 1.5))
   renderer.toneMapping = THREE.ACESFilmicToneMapping
   renderer.toneMappingExposure = 1.05
 
@@ -489,12 +493,12 @@ export function mountDbsBrainSection(container: HTMLElement): () => void {
       const active = btn.dataset.dbsCam === preset
       if (btn.dataset.dbsCam === 'zoom_lead') {
         btn.className = active
-          ? 'dbs-cam-btn px-2.5 py-1 rounded-lg bg-amber-500/25 text-amber-100 border border-amber-400/60 font-medium'
-          : 'dbs-cam-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-amber-200 border border-amber-500/30'
+          ? 'dbs-cam-btn shrink-0 px-2.5 py-1 rounded-lg bg-amber-500/25 text-amber-100 border border-amber-400/60 font-medium'
+          : 'dbs-cam-btn shrink-0 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-amber-200 border border-amber-500/30'
       } else {
         btn.className = active
-          ? 'dbs-cam-btn px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-200 border border-rose-500/40 font-medium'
-          : 'dbs-cam-btn px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'
+          ? 'dbs-cam-btn shrink-0 px-2.5 py-1 rounded-lg bg-rose-500/20 text-rose-200 border border-rose-500/40 font-medium'
+          : 'dbs-cam-btn shrink-0 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'
       }
     })
 

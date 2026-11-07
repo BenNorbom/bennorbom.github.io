@@ -51,15 +51,15 @@ export function mountProject64Section(container: HTMLElement): () => void {
           <!-- 3D Gantry & Chessboard Viewport (8 cols) -->
           <div class="lg:col-span-8 bg-slate-900/95 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl flex flex-col">
             <!-- Camera & Layer Toolbar -->
-            <div class="flex flex-wrap items-center justify-between gap-2 px-3.5 py-2.5 border-b border-slate-800 bg-slate-950/90 text-xs">
-              <div class="flex flex-wrap items-center gap-1.5">
-                <span class="font-semibold text-slate-400 mr-1">Camera:</span>
-                <button type="button" data-p64-cam="white" class="px-2 py-1 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700">White POV</button>
-                <button type="button" data-p64-cam="black" class="px-2 py-1 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700">Black POV</button>
-                <button type="button" data-p64-cam="top" class="px-2 py-1 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700">Top-Down</button>
-                <button type="button" data-p64-cam="under" class="px-2 py-1 rounded-lg bg-amber-500/15 text-amber-200 hover:bg-amber-500/25 border border-amber-500/30">Under-Board Gantry</button>
-                <button type="button" data-p64-cam="side" class="px-2 py-1 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700">Side Profile</button>
-                <div class="inline-flex items-center rounded-lg border border-slate-700 overflow-hidden ml-1">
+            <div class="flex flex-wrap items-center justify-between gap-2 px-3 sm:px-3.5 py-2 sm:py-2.5 border-b border-slate-800 bg-slate-950/90 text-xs">
+              <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar whitespace-nowrap max-w-full pb-0.5 sm:pb-0">
+                <span class="font-semibold text-slate-400 mr-1 shrink-0">Camera:</span>
+                <button type="button" data-p64-cam="white" class="shrink-0 px-2 py-1 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700">White POV</button>
+                <button type="button" data-p64-cam="black" class="shrink-0 px-2 py-1 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700">Black POV</button>
+                <button type="button" data-p64-cam="top" class="shrink-0 px-2 py-1 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700">Top-Down</button>
+                <button type="button" data-p64-cam="under" class="shrink-0 px-2 py-1 rounded-lg bg-amber-500/15 text-amber-200 hover:bg-amber-500/25 border border-amber-500/30">Under-Board Gantry</button>
+                <button type="button" data-p64-cam="side" class="shrink-0 px-2 py-1 rounded-lg bg-slate-800 text-slate-200 hover:bg-slate-700 border border-slate-700">Side Profile</button>
+                <div class="shrink-0 inline-flex items-center rounded-lg border border-slate-700 overflow-hidden ml-1">
                   <button type="button" id="p64ZoomInBtn" title="Zoom In" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-mono">+</button>
                   <button type="button" id="p64ZoomOutBtn" title="Zoom Out" class="px-2 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-mono border-l border-slate-700">&minus;</button>
                 </div>
@@ -67,7 +67,7 @@ export function mountProject64Section(container: HTMLElement): () => void {
             </div>
 
             <!-- 3D Canvas Stage -->
-            <div class="relative w-full h-[520px] sm:h-[600px] flex-1 bg-slate-950">
+            <div class="relative w-full h-[340px] sm:h-[520px] lg:h-[600px] flex-1 bg-slate-950">
               <canvas
                 data-p64-id="boardCanvas"
                 class="w-full h-full block cursor-grab active:cursor-grabbing"
@@ -75,43 +75,44 @@ export function mountProject64Section(container: HTMLElement): () => void {
               ></canvas>
 
               <!-- Live Hardware Telemetry HUD -->
-              <div class="absolute top-3 left-3 bg-slate-950/85 backdrop-blur-md border border-slate-800/90 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 pointer-events-none flex flex-col gap-1 max-w-sm shadow-lg">
-                <div class="flex items-center justify-between gap-4">
-                  <div class="flex items-center gap-2">
-                    <span data-p64-id="magnetIndicator" class="w-2.5 h-2.5 rounded-full bg-slate-500"></span>
-                    <span data-p64-id="magnetStatusText" class="font-semibold">12V Magnet: OFF</span>
+              <div class="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 bg-slate-950/85 backdrop-blur-md border border-slate-800/90 rounded-xl px-2.5 py-1.5 sm:px-3.5 sm:py-2.5 text-[10px] sm:text-xs text-slate-200 pointer-events-none flex flex-col gap-0.5 sm:gap-1 max-w-[60%] sm:max-w-sm shadow-lg">
+                <div class="flex items-center justify-between gap-2 sm:gap-4">
+                  <div class="flex items-center gap-1.5 sm:gap-2">
+                    <span data-p64-id="magnetIndicator" class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-slate-500 shrink-0"></span>
+                    <span data-p64-id="magnetStatusText" class="font-semibold truncate">12V Magnet: OFF</span>
                   </div>
-                  <span data-p64-id="hoverSquareBadge" class="font-mono text-sky-400">Square: --</span>
+                  <span data-p64-id="hoverSquareBadge" class="font-mono text-sky-400 hidden sm:inline">Square: --</span>
                 </div>
-                <div data-p64-id="hudStepText" class="text-slate-300 font-medium">Ready — Click any White or Black piece to move</div>
-                <div data-p64-id="hudCoordsText" class="text-slate-400 font-mono text-[11px]">Gantry X: 240.0 mm | Y: 240.0 mm</div>
+                <div data-p64-id="hudStepText" class="text-slate-300 font-medium truncate">Ready — Tap or click any piece to move</div>
+                <div data-p64-id="hudCoordsText" class="text-slate-400 font-mono text-[9.5px] sm:text-[11px] truncate">Gantry X: 240.0 mm | Y: 240.0 mm</div>
               </div>
 
               <!-- Playback Controls Overlay -->
-              <div class="absolute top-3 right-3 bg-slate-950/85 backdrop-blur border border-slate-800 rounded-xl p-1.5 text-xs flex items-center gap-1.5">
+              <div class="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 bg-slate-950/85 backdrop-blur border border-slate-800 rounded-xl p-1 sm:p-1.5 text-[10px] sm:text-xs flex items-center gap-1 sm:gap-1.5">
                 <button
                   type="button"
                   data-p64-id="pauseBtn"
                   id="p64PauseBtn"
-                  class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium"
+                  class="px-2 sm:px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium"
                 >
                   Pause
                 </button>
                 <button
                   type="button"
                   id="p64SkipBtn"
-                  class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium"
+                  class="px-2 sm:px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-medium"
                 >
-                  Finish Instantly
+                  <span class="hidden sm:inline">Finish Instantly</span>
+                  <span class="sm:hidden">Skip</span>
                 </button>
               </div>
 
               <!-- Legend Overlay -->
-              <div class="absolute bottom-3 left-3 bg-slate-950/85 backdrop-blur border border-slate-800 rounded-lg px-3 py-1.5 text-[11px] text-slate-300 pointer-events-none flex flex-wrap items-center gap-3">
-                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-cyan-400 inline-block"></span>Planned Route</span>
-                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>Square-Edge Nudge</span>
-                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>Restore Center</span>
-                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span>12V Magnet ON</span>
+              <div class="absolute bottom-2.5 left-2.5 right-2.5 sm:right-auto sm:bottom-3 sm:left-3 bg-slate-950/85 backdrop-blur border border-slate-800 rounded-lg px-2.5 py-1 sm:px-3 sm:py-1.5 text-[9.5px] sm:text-[11px] text-slate-300 pointer-events-none flex flex-wrap items-center gap-x-2.5 gap-y-1 sm:gap-3">
+                <span class="flex items-center gap-1"><span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-cyan-400 inline-block"></span>Planned Route</span>
+                <span class="flex items-center gap-1"><span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400 inline-block"></span>Square-Edge Nudge</span>
+                <span class="flex items-center gap-1"><span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400 inline-block"></span>Restore Center</span>
+                <span class="flex items-center gap-1"><span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-rose-500 inline-block"></span>12V Magnet ON</span>
               </div>
             </div>
           </div>
