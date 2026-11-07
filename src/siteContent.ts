@@ -26,11 +26,13 @@ export interface SiteContentData {
     shortBio: string
     siteUrl: string
     githubUrl: string
+    linkedinUrl: string
   }
   hero: {
     eyebrow: string
     heading: string
     subheading: string
+    aboutTitle: string
     description: string
   }
   nav: {
@@ -90,13 +92,15 @@ export const SITE_CONTENT: SiteContentData = {
     "tagline": "Student at the University of Florida",
     "shortBio": "Interactive portfolio of research, neural stimulation visualization software, embedded motion planning, and real-time relativistic ray tracing.",
     "siteUrl": "https://bennorbom.github.io/",
-    "githubUrl": "https://github.com/BenNorbom"
+    "githubUrl": "https://github.com/BenNorbom",
+    "linkedinUrl": "https://www.linkedin.com/in/benjamin-norbom/"
   },
   "hero": {
     "eyebrow": "",
     "heading": "Benjamin Norbom",
     "subheading": "",
-    "description": ""
+    "aboutTitle": "About Me",
+    "description": "Hi, my name is Benjamin Norbom. I am a senior computer engineering student at the University of Florida. During my sophomore year I decided to pursue a career in medicine (I am currently in this years medical school application cycle), but I continued with computer engineering because I really enjoyed the research and projects it prepared me to work on. As medicine continues to evolve due to advances in artificial intelligence and other technologies, I hope to draw on my engineering background to help develop improved treatments and provide better care for my future patients."
   },
   "nav": {
     "dbsResearch": "DBS Research",
