@@ -100,7 +100,7 @@ export const SITE_CONTENT: SiteContentData = {
     "heading": "Benjamin Norbom",
     "subheading": "",
     "aboutTitle": "About Me",
-    "description": "Hi, my name is Benjamin Norbom. I am a senior computer engineering student at the University of Florida. During my sophomore year I decided to pursue a career in medicine (I am currently in this years medical school application cycle), but I continued with computer engineering because I really enjoyed the research and projects it prepared me to work on. As medicine continues to evolve due to advances in artificial intelligence and other technologies, I hope to draw on my engineering background to help develop improved treatments and provide better care for my future patients."
+    "description": "Hi, my name is Benjamin Norbom, and I am a senior computer engineering student at the University of Florida. During my sophomore year, I decided to pursue a career in medicine and am currently applying to medical school. However, I chose to continue studying computer engineering because of my interest in the research and projects it has allowed me to pursue. As medicine continues to evolve through advances in artificial intelligence and other technologies, I hope to draw on my engineering background to help develop improved treatments and provide better care for my future patients."
   },
   "nav": {
     "dbsResearch": "DBS Research",
